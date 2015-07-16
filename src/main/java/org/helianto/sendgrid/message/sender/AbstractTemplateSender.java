@@ -189,7 +189,7 @@ public abstract class AbstractTemplateSender {
 		if (paramMap.containsKey("confirmationToken")) {
 			String internalConfirmationUri = getConfirmationUri(paramMap.get("confirmationToken"));
 			if (internalConfirmationUri!=null && !internalConfirmationUri.isEmpty()) {
-				substitutions.put("${confirmationUri}", getConfirmationUriEncoded(internalConfirmationUri));
+				substitutions.put("${confirmationUri}", internalConfirmationUri);
 			}
 		}
 		substitutions.put("${senderEmail}", senderEmail);
