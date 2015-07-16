@@ -131,7 +131,7 @@ public abstract class AbstractTemplateSender {
           		sendGridEmail.addSubstitution("${recipientFirstName}", new String[] { new String(Base64.encodeBase64(recipientFirstName.getBytes())) } );
           		sendGridEmail.addSubstitution("${recipientLastName}", new String[] { new String(Base64.encodeBase64(recipientLastName.getBytes())) } );
           		for (String key: getDefaultSubstitutions(paramMap).keySet()) {
-              		sendGridEmail.addSubstitution(key, new String[] { new String(Base64.encodeBase64(getDefaultSubstitutions(paramMap).get(key).getBytes())) } );
+              		sendGridEmail.addSubstitution(key, new String[] { new String(getDefaultSubstitutions(paramMap).get(key).getBytes()) } );
           		}
           		sendGridEmail.getSMTPAPI().addFilter("templates", "enabled", 1);
           		sendGridEmail.addFilter("templates", "template_id", templateId);
@@ -194,12 +194,7 @@ public abstract class AbstractTemplateSender {
 		}
 		substitutions.put("${senderEmail}", senderEmail);
 		for (String param: paramMap.keySet()) {
-			try {
-				substitutions.put("${"+param+"}"
-						, URLEncoder.encode(paramMap.get(param), StandardCharsets.UTF_8.name()));
-			} catch (UnsupportedEncodingException e) {
-				logger.warn("Unable to encode param {} = {}",param, paramMap.get(param));
-			}			
+			substitutions.put("${"+param+"}", paramMap.get(param));
 		}
 		return substitutions;
 	}
