@@ -45,6 +45,7 @@ public class StaticController {
 		for (Entry<String, LinkedList<String>> entry : matrixVars.entrySet())
 		{
 			for (String string : entry.getValue()) {
+				System.err.println(entry.getKey()+";"+entry.getValue());
 				model.addAttribute(entry.getKey(), string);
 				break;
 			}
